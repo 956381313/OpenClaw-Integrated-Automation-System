@@ -1,0 +1,65 @@
+{
+  "name": "OpenClaw Skills Repository",
+  "version": "1.0.0",
+  "description": "OpenClaw技能与功能库配置",
+  
+  "workspace": {
+    "path": "~/.openclaw/workspace",
+    "autoBackup": true,
+    "backupInterval": 86400000,
+    "maxBackups": 7
+  },
+  
+  "skills": {
+    "enabled": true,
+    "autoLoad": true,
+    "scanInterval": 300000,
+    "directories": [
+      "~/.openclaw/workspace/skills",
+      "~/.openclaw/workspace/tools"
+    ]
+  },
+  
+  "memory": {
+    "dailyNotes": true,
+    "longTermMemory": true,
+    "autoCleanup": true,
+    "retentionDays": 30
+  },
+  
+  "heartbeat": {
+    "enabled": true,
+    "interval": 1800000,
+    "checks": [
+      "email",
+      "calendar",
+      "systemStatus"
+    ]
+  },
+  
+  "tools": {
+    "wordDocument": {
+      "enabled": true,
+      "pythonPath": "python3",
+      "libraries": ["python-docx", "docx2txt", "pdf2docx"]
+    },
+    "automation": {
+      "enabled": true,
+      "scriptsPath": "~/.openclaw/workspace/tools"
+    }
+  },
+  
+  "logging": {
+    "level": "info",
+    "file": "~/.openclaw/logs/openclaw.log",
+    "maxSize": "10MB",
+    "maxFiles": 5
+  },
+  
+  "security": {
+    "encryptSecrets": true,
+    "askBeforeExternal": true,
+    "allowFileOperations": true,
+    "restrictExternalAccess": false
+  }
+}

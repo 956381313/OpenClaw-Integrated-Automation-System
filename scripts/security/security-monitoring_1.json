@@ -1,0 +1,120 @@
+{
+  "monitoring_schedule": {
+    "daily_check": {
+      "enabled": true,
+      "time": "09:00",
+      "mode": "standard",
+      "generate_report": true,
+      "notify_on_failure": true
+    },
+    "weekly_audit": {
+      "enabled": true,
+      "day": "monday",
+      "time": "10:00",
+      "mode": "full",
+      "generate_report": true,
+      "notify_on_warning": true
+    },
+    "monthly_review": {
+      "enabled": true,
+      "day": "first",
+      "time": "14:00",
+      "mode": "full",
+      "generate_report": true,
+      "archive_reports": true
+    }
+  },
+  "check_categories": {
+    "api_keys": {
+      "enabled": true,
+      "keys": ["DEEPSEEK_API_KEY", "OLLAMA_API_KEY", "HUGGINGFACE_API_KEY", "NVIDIA_API_KEY", "CLAWHUB_API_KEY"],
+      "severity": "high"
+    },
+    "security_tools": {
+      "enabled": true,
+      "tools": ["MC Porter", "Oracle", "ClawdHub", "1Password CLI", "GitHub CLI"],
+      "severity": "high"
+    },
+    "file_permissions": {
+      "enabled": true,
+      "files": [".env", "07-configuration/api-keys-config.json"],
+      "severity": "medium"
+    },
+    "network_connectivity": {
+      "enabled": false,
+      "services": [
+        {"name": "DeepSeek API", "url": "https://api.deepseek.com"},
+        {"name": "GitHub API", "url": "https://api.github.com"},
+        {"name": "HuggingFace", "url": "https://huggingface.co"}
+      ],
+      "severity": "low"
+    }
+  },
+  "notification_settings": {
+    "email": {
+      "enabled": false,
+      "recipients": []
+    },
+    "desktop": {
+      "enabled": true,
+      "on_failure": true,
+      "on_warning": false
+    },
+    "log_file": {
+      "enabled": true,
+      "location": "06-documentation/security/logs/",
+      "retention_days": 30
+    }
+  },
+  "report_settings": {
+    "format": "markdown",
+    "location": "06-documentation/security/reports/",
+    "retention": {
+      "daily": 7,
+      "weekly": 4,
+      "monthly": 12
+    },
+    "include_details": true,
+    "include_recommendations": true
+  },
+  "escalation_policy": {
+    "level1": {
+      "condition": "any_failure",
+      "action": "log_and_notify",
+      "timeout": "immediate"
+    },
+    "level2": {
+      "condition": "multiple_failures",
+      "action": "run_diagnostics",
+      "timeout": "1h"
+    },
+    "level3": {
+      "condition": "critical_failure",
+      "action": "alert_administrator",
+      "timeout": "15m"
+    }
+  },
+  "maintenance_tasks": {
+    "log_rotation": {
+      "enabled": true,
+      "schedule": "weekly",
+      "max_age_days": 30
+    },
+    "report_archiving": {
+      "enabled": true,
+      "schedule": "monthly",
+      "compress_old": true
+    },
+    "tool_updates": {
+      "enabled": true,
+      "schedule": "monthly",
+      "auto_update": false
+    }
+  },
+  "metadata": {
+    "version": "1.0",
+    "created": "2026-03-05",
+    "last_updated": "2026-03-05",
+    "description": "安全监控配置和计划"
+  }
+}

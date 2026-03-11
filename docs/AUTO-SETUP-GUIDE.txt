@@ -1,0 +1,116 @@
+========================================
+   OPENCLAW AUTOMATION SETUP GUIDE
+========================================
+
+PROBLEM: Batch file encoding issues on Chinese Windows
+
+SOLUTION: Use PowerShell script instead
+
+STEP 1: RUN AS ADMINISTRATOR
+----------------------------------------
+1. Right-click on "setup-auto.ps1"
+2. Select "Run with PowerShell"
+3. If prompted, click "Yes" to allow
+
+OR
+
+1. Open PowerShell as Administrator
+2. Navigate to workspace folder:
+   cd "C:\Users\luchaochao\.openclaw\workspace"
+3. Run the script:
+   .\setup-auto.ps1
+
+STEP 2: VERIFY TASKS ARE CREATED
+----------------------------------------
+After running setup-auto.ps1, verify tasks:
+
+In PowerShell (Admin):
+Get-ScheduledTask | Where-Object {$_.TaskName -like 'OpenClaw*'}
+
+Or in Command Prompt:
+schtasks /query /tn "OpenClaw*"
+
+You should see 4 tasks:
+1. OpenClaw-AutoBackup    (Hourly)
+2. OpenClaw-SecurityCheck (Daily 09:00)
+3. OpenClaw-WeeklyAudit   (Sunday 04:00)
+4. OpenClaw-Iteration     (Daily 02:00)
+
+STEP 3: TEST BACKUP MANUALLY
+----------------------------------------
+Test the backup system works:
+
+powershell -ExecutionPolicy Bypass -File upload-simple.ps1
+
+This should:
+1. Create a backup of 9 core files
+2. Commit to local Git
+3. Try to push to GitHub
+
+STEP 4: MANAGE AUTOMATION TASKS
+----------------------------------------
+Common commands:
+
+# View task status
+Get-ScheduledTask -TaskName "OpenClaw-AutoBackup"
+
+# Run task immediately
+Start-ScheduledTask -TaskName "OpenClaw-AutoBackup"
+
+# Stop task
+Stop-ScheduledTask -TaskName "OpenClaw-AutoBackup"
+
+# Delete task
+Unregister-ScheduledTask -TaskName "OpenClaw-AutoBackup" -Confirm:$false
+
+TROUBLESHOOTING
+----------------------------------------
+1. If "Execution Policy" error:
+   Run PowerShell as Admin, then:
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+2. If "Access Denied" error:
+   Make sure you're running as Administrator
+
+3. If tasks don't run:
+   Check Windows Event Viewer -> Windows Logs -> Application
+
+4. If GitHub push fails:
+   Backup is saved locally, will retry later
+
+QUICK START COMMANDS
+----------------------------------------
+# 1. Setup automation (as Admin)
+Right-click "setup-auto.ps1" -> Run with PowerShell
+
+# 2. Test backup
+powershell -ExecutionPolicy Bypass -File upload-simple.ps1
+
+# 3. Verify tasks
+Get-ScheduledTask | Where-Object {$_.TaskName -like 'OpenClaw*'}
+
+# 4. Run backup now
+Start-ScheduledTask -TaskName "OpenClaw-AutoBackup"
+
+BACKUP LOCATIONS
+----------------------------------------
+1. Local Git: github-cloud-backup\simple-backups\
+2. GitHub: https://github.com/956381313/OpenClaw
+3. Local files: Created in workspace folder
+
+NEXT STEPS
+----------------------------------------
+1. Automation will run hourly starting at next hour
+2. Check GitHub for backups: https://github.com/956381313/OpenClaw
+3. Monitor logs in workspace folder
+
+========================================
+   SUPPORT
+========================================
+If issues persist:
+1. Check file encoding is UTF-8
+2. Run scripts in PowerShell instead of CMD
+3. Ensure Administrator privileges
+
+Last updated: 2026-03-05
+========================================

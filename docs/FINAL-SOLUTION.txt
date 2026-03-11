@@ -1,0 +1,64 @@
+FINAL SOLUTION FOR STUBBORN FOLDER DELETION
+============================================
+
+CURRENT STATUS:
+✅ english-reorg-backup-20260306-234623 - DELETED
+❌ pre-architecture-backup-20260306-172408 - STILL EXISTS
+
+FOLDER PATH:
+C:\Users\luchaochao\.openclaw\workspace\pre-architecture-backup-20260306-172408
+
+SOLUTION 1: SIMPLE COMMAND (Try this first)
+-------------------------------------------
+1. Open Command Prompt as Administrator
+2. Run this command:
+   rd /s /q "C:\Users\luchaochao\.openclaw\workspace\pre-architecture-backup-20260306-172408"
+
+SOLUTION 2: RESTART AND DELETE (Most effective)
+-----------------------------------------------
+1. Save all work and close all programs
+2. Restart computer
+3. Immediately after login (before opening anything):
+   - Open Command Prompt as Administrator
+   - Run the rd command above
+
+SOLUTION 3: SAFE MODE (Guaranteed to work)
+------------------------------------------
+1. Restart computer
+2. Press F8 during boot
+3. Select "Safe Mode"
+4. In Safe Mode, delete the folder using:
+   - File Explorer (right-click → Delete)
+   - Or Command Prompt with rd command
+
+SOLUTION 4: THIRD-PARTY TOOL
+----------------------------
+1. Download Unlocker: https://unlocker.en.softonic.com/
+2. Install Unlocker
+3. Right-click the folder → Unlocker → Delete
+
+QUICK FIX BATCH FILE:
+---------------------
+Create a file called "fix.bat" with this content:
+@echo off
+rd /s /q "C:\Users\luchaochao\.openclaw\workspace\pre-architecture-backup-20260306-172408"
+pause
+
+Then run it as Administrator.
+
+WHY THIS FOLDER IS STUBBORN:
+- May have path longer than 260 characters
+- May contain system/hidden files
+- May be locked by a process
+- May have special permissions
+
+RECOMMENDATION:
+Try Solution 2 (Restart and delete) - it works 99% of the time.
+
+AFTER DELETION:
+- Disk space will be further freed
+- Workspace will be completely clean
+- All backup folders removed
+
+CONTACT FOR HELP:
+If none of these work, provide the exact error message for further assistance.
